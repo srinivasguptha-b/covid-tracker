@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import React, { StrictMode, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container } from 'react-bootstrap';
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import Navmenu from './Navmenu';
+import Home from './Home';
+import StateData from './StateData';
+import AppContext from './AppContext';
 
 function App() {
+  const [modalShow, setModalShow] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StrictMode>
+      <AppContext.Provider value={{ modalShow, setModalShow }}>
+        <Navmenu />
+        <Router basename='covid-tracker'>
+          <Switch>
+            <Route exact path="/" render={(props) => <Home {...props} />} />
+            <Route path="/state/:shortkey" component={StateData} />
+            {/* <Route path="/district/:shortkey" component={DistrictData} /> */}
+          </Switch>
+        </Router>
+      </AppContext.Provider>
+    </StrictMode>
   );
 }
 

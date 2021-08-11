@@ -1,38 +1,31 @@
-.App {
-  text-align: center;
+body{
+  background-color: #CCC;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.table-font{
+  font-size: 14px;
+  color: #333;
+}
+.table-heading{
+  margin: 0;
+    padding: 10px 5px;
+    background: #FFF;
+    text-align: center;
+    font-size: 20px;
+    color: #333;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.yest-comp-text{
+  font-size: 14px;
+  padding-top: 10px;
+  color: #333;
+  font-weight: bolder;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.card-category{
+  font-weight: bolder;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bg-warning{
+  background-color: #ff9c07!important
 }
