@@ -13,7 +13,7 @@ const Home = () => {
     const [chartData, setChartData] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.covid19india.org/v4/min/data.min.json').then(response => response.json()).then(response => {
+        fetch('https://data.covid19india.org/v4/min/data.min.json').then(response => response.json()).then(response => {
             setStatewiseTotalData(response);
             let totald = Object.keys(response).filter(i => i === "TT").map(obj => {
                 return response[obj].total
@@ -23,7 +23,7 @@ const Home = () => {
             setTotalData(totald[0]);
         });
 
-        fetch('https://api.covid19india.org/v4/min/timeseries.min.json').then(response => response.json()).then(response => {
+        fetch('https://data.covid19india.org/v4/min/timeseries.min.json').then(response => response.json()).then(response => {
             let totald = Object.keys(response).filter(i => i === "TT").map(obj => {
                 return response[obj]
             });
