@@ -5,13 +5,14 @@ import { statesData } from './json_db/states';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Chart } from "react-google-charts";
+import District from './District';
 const Home = () => {
     const [showStateChartToggle, setShowStateChartToggle] = useState(false);
     const [statewiseTotalData, setStatewiseTotalData] = useState([]);
     const [totalData, setTotalData] = useState([]);
     const [yestCompData, setYestCompData] = useState({});
     const [chartData, setChartData] = useState([]);
-
+    const [stateSelected,setStateSelected]=useState('');
     useEffect(() => {
         fetch('https://data.covid19india.org/v4/min/data.min.json').then(response => response.json()).then(response => {
             setStatewiseTotalData(response);
@@ -237,7 +238,7 @@ const Home = () => {
                             </thead>
                             <tbody className="table-font">
                                 {Object.keys(statewiseTotalData).filter(i => i !== "TT").map(obj => {
-                                    return <tr key={obj}>
+                                    return <><tr onClick={()=>{setStateSelected(obj)}} key={obj}>
                                         <td>{statesData[obj]}</td>
                                         <td>
                                             <NumberFormat
@@ -270,7 +271,9 @@ const Home = () => {
                                                 thousandSeparator={true}
                                             />
                                         </td>
-                                    </tr>
+                                    </tr>                                    
+                                    {stateSelected==obj?<tr><td colSpan='5'><button className='closebutton' onClick={()=>{setStateSelected('')}}>X</button><District stateSelected={stateSelected}/></td></tr>:<></>}
+                                    </>
                                 })}
                             </tbody>
                         </Table> : <></>}

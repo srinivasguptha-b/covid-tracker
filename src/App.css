@@ -14,7 +14,13 @@ body{
     font-size: 20px;
     color: #333;
 }
-
+.closebutton{
+  border-radius: 50%;
+  font-size: medium;
+  right: 2%;
+  position: absolute;
+  color: red;
+}
 .yest-comp-text{
   font-size: 14px;
   padding-top: 10px;
