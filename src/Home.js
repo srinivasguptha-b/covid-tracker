@@ -12,7 +12,7 @@ const Home = () => {
     const [totalData, setTotalData] = useState([]);
     const [yestCompData, setYestCompData] = useState({});
     const [chartData, setChartData] = useState([]);
-    const [stateSelected,setStateSelected]=useState('');
+    const [stateSelected, setStateSelected] = useState('');
     useEffect(() => {
         fetch('https://data.covid19india.org/v4/min/data.min.json').then(response => response.json()).then(response => {
             setStatewiseTotalData(response);
@@ -33,10 +33,10 @@ const Home = () => {
 
             //console.log(totald[0].dates[today].total);
             setYestCompData({
-                confirmed: (totald[0].dates[today].total.confirmed - totald[0].dates[yesterday].total.confirmed),
-                recovered: (totald[0].dates[today].total.recovered - totald[0].dates[yesterday].total.recovered),
-                deceased: (totald[0].dates[today].total.deceased - totald[0].dates[yesterday].total.deceased),
-                other: (totald[0].dates[today].total.other - totald[0].dates[yesterday].total.other)
+                confirmed: Math.abs(totald[0].dates[today].total.confirmed - totald[0].dates[yesterday].total.confirmed),
+                recovered: Math.abs(totald[0].dates[today].total.recovered - totald[0].dates[yesterday].total.recovered),
+                deceased: Math.abs(totald[0].dates[today].total.deceased - totald[0].dates[yesterday].total.deceased),
+                other: Math.abs(totald[0].dates[today].total.other - totald[0].dates[yesterday].total.other)
 
             });
 
@@ -72,7 +72,7 @@ const Home = () => {
                                             />
                                             <div className="yest-comp-text">
                                                 <NumberFormat
-                                                    value={(yestCompData.confirmed - (yestCompData.recovered + yestCompData.deceased + yestCompData.other))}
+                                                    value={Math.abs(yestCompData.confirmed - (yestCompData.recovered + yestCompData.deceased + yestCompData.other))}
                                                     displayType="text"
                                                     thousandsGroupStyle="lakh"
                                                     thousandSeparator={true}
@@ -201,8 +201,7 @@ const Home = () => {
                 <Col lg="12">
                     <Chart
                         width={'100%'}
-                        height={'400px'}
-                        chartType="ColumnChart"
+                        chartType="LineChart"
                         loader={<div>Loading Chart</div>}
                         data={chartData}
                         options={{
@@ -238,7 +237,7 @@ const Home = () => {
                             </thead>
                             <tbody className="table-font">
                                 {Object.keys(statewiseTotalData).filter(i => i !== "TT").map(obj => {
-                                    return <><tr onClick={()=>{setStateSelected(obj)}} key={obj}>
+                                    return <><tr onClick={() => { setStateSelected(obj) }} key={obj}>
                                         <td>{statesData[obj]}</td>
                                         <td>
                                             <NumberFormat
@@ -271,8 +270,8 @@ const Home = () => {
                                                 thousandSeparator={true}
                                             />
                                         </td>
-                                    </tr>                                    
-                                    {stateSelected==obj?<tr><td colSpan='5'><button className='closebutton' onClick={()=>{setStateSelected('')}}>X</button><District stateSelected={stateSelected}/></td></tr>:<></>}
+                                    </tr>
+                                        {stateSelected == obj ? <tr><td colSpan='5'><button className='closebutton' onClick={() => { setStateSelected('') }}>X</button><District stateSelected={stateSelected} /></td></tr> : <></>}
                                     </>
                                 })}
                             </tbody>
